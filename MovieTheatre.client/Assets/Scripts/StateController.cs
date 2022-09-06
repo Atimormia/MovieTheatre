@@ -1,7 +1,7 @@
 ﻿using System;
 using Data;
 
-namespace DefaultNamespace
+namespace Global
 {
     public class StateController
     {

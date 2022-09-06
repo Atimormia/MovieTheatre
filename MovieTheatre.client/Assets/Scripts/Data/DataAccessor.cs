@@ -1,78 +1,162 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using Global;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Util.Store;
+using UnityEngine;
 
 namespace Data
 {
     public class DataAccessor
     {
+        private const string FILE_ID = "1BQDcoWa32zPNk-UhabLPRHtaQif1VKnPoObl6b93CH8";
+        private const string APP_NAME = "Movie Theatre";
+        private const string EVENTS_RANGE = "Events!A2:C";
+        private const string SEATS_RANGE = "Seats!A2:E";
+        
         private static readonly Lazy<DataAccessor> Lazy =
             new Lazy<DataAccessor>(() => new DataAccessor());
+        private static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
 
+        private List<SeatData> _seats = new List<SeatData>();
+        private Dictionary<int, EventData> _events = new Dictionary<int, EventData>();
+        private SheetsService _service;
+        
         public static DataAccessor Instance => Lazy.Value;
 
         private DataAccessor()
         {
+            try
+            {
+                UserCredential credential;
+                using (var stream = new FileStream("Assets/credentials.json", FileMode.Open, FileAccess.Read))
+                {
+                    const string credPath = "token.json";
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.FromStream(stream).Secrets,
+                        Scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true)).Result;
+                    Debug.Log("Credential file saved to: " + credPath);
+                }
+
+                _service = new SheetsService(new BaseClientService.Initializer
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = APP_NAME
+                });
+
+                LoadEvents();
+                LoadSeats();
+            }
+            catch (FileNotFoundException e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private void LoadEvents()
+        {
+            _events.Clear();
+            foreach (var raw in GetValues(EVENTS_RANGE))
+            {
+                _events.Add(int.Parse((string) raw[0]), new EventData
+                {
+                    Id = int.Parse((string) raw[0]),
+                    MovieName = (string) raw[1],
+                    DateTime = DateTime.Parse((string) raw[2])
+                });
+            }
+        }
+        
+        private void LoadSeats()
+        {
+            _seats.Clear();
+            foreach (var raw in GetValues(SEATS_RANGE))
+            {
+                var eventId = int.Parse((string) raw[1]);
+                _seats.Add(new SeatData
+                {
+                    SeatNumber = int.Parse((string) raw[0]),
+                    EventData = _events.ContainsKey(eventId) ? _events[eventId] : null,
+                    Reserved = bool.Parse((string) raw[2]),
+                    Cost = float.Parse((string) raw[3]),
+                    ClientName = raw.Count > 4 ? (string) raw[4] : null,
+                });
+            }
+        }
+
+        private IList<IList<object>> GetValues(string range)
+        {
+            var request = _service.Spreadsheets.Values.Get(FILE_ID, range);
+            var response = request.Execute();
+            var values = response.Values;
+            if (values != null && values.Count != 0) 
+                return values;
+            
+            Debug.LogWarning("No data found.");
+            return null;
         }
 
         public IEnumerable<EventData> GetAllMovies()
         {
-            //test
-            return new[]
-            {
-                new EventData {MovieName = "Interstellar", DateTime = DateTime.Today},
-                new EventData {MovieName = "Thor", DateTime = DateTime.Today}
-            };
+            return _events.Values;
         }
 
         public IEnumerable<SeatData> GetAllSeatsForMovie(EventData movie)
         {
-            return new[]
-            {
-                new SeatData{EventData = movie, SeatNumber = 101, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 102, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 103, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 104, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 105, Reserved = false, Cost = 200f}, 
-                //new SeatData{EventData = movie, SeatNumber = 106, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 107, Reserved = true, Cost = 100f, ClientName = "0"}, 
-                new SeatData{EventData = movie, SeatNumber = 201, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 202, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 203, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 204, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 205, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 206, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 207, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 301, Reserved = true, Cost = 100f, ClientName = "1"}, 
-                new SeatData{EventData = movie, SeatNumber = 302, Reserved = false, Cost = 100f},
-                new SeatData{EventData = movie, SeatNumber = 303, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 304, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 305, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 306, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 307, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 401, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 402, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 403, Reserved = true, Cost = 100f, ClientName = "0"}, 
-                new SeatData{EventData = movie, SeatNumber = 404, Reserved = false, Cost = 200f}, 
-                new SeatData{EventData = movie, SeatNumber = 405, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 406, Reserved = false, Cost = 100f}, 
-                new SeatData{EventData = movie, SeatNumber = 407, Reserved = false, Cost = 100f}, 
-            };
+            return _seats.Where(x => x.EventData.Equals(movie));
         }
 
         public IEnumerable<SeatData> GetReservationsForClient(string client)
         {
-            var movies = GetAllMovies().ToArray();
-            return new[]
-            {
-                new SeatData{EventData = movies.First(), SeatNumber = 107, Reserved = true, Cost = 100f, ClientName = "0"}, 
-                new SeatData{EventData = movies.First(), SeatNumber = 301, Reserved = true, Cost = 100f, ClientName = "1"}, 
-                new SeatData{EventData = movies.Last(), SeatNumber = 403, Reserved = true, Cost = 100f, ClientName = "0"}, 
-            };
+            return _seats.Where(x => x.ClientName == client);
         }
 
-        public void SaveReservation(IEnumerable<SeatData> seats)
+        public void SaveReservation(List<SeatData> seats)
         {
+            foreach (var seat in _seats.Where(seats.Contains))
+            {
+                seat.Reserved = true;
+                seat.ClientName = StateController.Instance.CurrentClientName;
+            }
+            UploadSeats();
+        }
+
+        private void UploadSeats()
+        {
+            try
+            {
+                var body = new ValueRange {Range = SEATS_RANGE, Values = SeatsToValues()};
+                var result = _service.Spreadsheets.Values.Update(body, FILE_ID, SEATS_RANGE).Execute();
+                Debug.Log($"Cells updated: {result.UpdatedCells}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+        
+        private IList<IList<object>> SeatsToValues()
+        {
+            return _seats.Select(seat => new List<object>
+                {
+                    seat.SeatNumber.ToString(),
+                    seat.EventData.Id.ToString(),
+                    seat.Reserved.ToString(),
+                    seat.Cost.ToString(CultureInfo.InvariantCulture),
+                    seat.ClientName
+                })
+                .Cast<IList<object>>()
+                .ToList();
         }
     }
 }

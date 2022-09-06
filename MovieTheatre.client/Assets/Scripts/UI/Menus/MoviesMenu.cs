@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
-using DefaultNamespace;
+using Global;
 using UnityEngine;
 using Utils;
 

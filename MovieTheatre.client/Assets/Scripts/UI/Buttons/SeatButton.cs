@@ -62,9 +62,9 @@ public class SeatButton : MonoBehaviour
         OnSelected?.Invoke();
     }
 
-    public void SetCost(float cost)
+    public void SetCost(string cost)
     {
-        Text.text = cost.ToString(CultureInfo.InvariantCulture);
+        Text.text = cost;
     }
 
 }

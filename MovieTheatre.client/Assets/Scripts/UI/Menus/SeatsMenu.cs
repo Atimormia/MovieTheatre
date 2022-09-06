@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Data;
-using DefaultNamespace;
+using Global;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -28,13 +28,21 @@ public class SeatsMenu : MonoBehaviour
 
     private ObjectsPool<SeatButton> _buttonsPool = null;
     private ObjectsPool<Transform> _rawParentsPool = null;
+
+    private EventData _prevEvent;
     public void OnEnable()
     {
         if (_buttonsPool == null)
             _buttonsPool = new ObjectsPool<SeatButton>(null, _seatButtonPrefab);
         if (_rawParentsPool == null)
             _rawParentsPool = new ObjectsPool<Transform>(_buttonsGridParent, _buttonsRawParent);
-        
+
+        if (_prevEvent != null && !_prevEvent.Equals(StateController.Instance.CurrentEvent))
+        {
+            _buttonsPool.Clear();
+            _rawParentsPool.Clear();
+        }
+
         FillSeats();
         _reserveButton.onClick.AddListener(ReserveHandle);
         _selectedSeats.Clear();
@@ -45,7 +53,7 @@ public class SeatsMenu : MonoBehaviour
 
     private void ReserveHandle()
     {
-        DataAccessor.Instance.SaveReservation(_selectedSeats);
+        DataAccessor.Instance.SaveReservation(_selectedSeats.ToList());
         gameObject.SetActive(false);
         _reservationsMenu.SetActive(true);
     }
@@ -77,13 +85,15 @@ public class SeatsMenu : MonoBehaviour
             });
 
             i++;
-
+            button.SetAsAvailable();
             if (seat.Reserved)
+            {
                 button.SetAsReserved();
+                button.SetCost(string.Empty);
+            }
             else
             {
-                button.SetAsAvailable();
-                button.SetCost(seat.Cost);
+                button.SetCost(seat.Cost.ToString(CultureInfo.InvariantCulture));
             }
         }
     }

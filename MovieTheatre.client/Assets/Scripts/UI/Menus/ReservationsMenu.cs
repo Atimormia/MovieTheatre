@@ -1,5 +1,5 @@
 ﻿using Data;
-using DefaultNamespace;
+using Global;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -25,6 +25,7 @@ public class ReservationsMenu : MonoBehaviour
     private void ClientUpdateHandle()
     {
         StateController.Instance.CurrentClientName = _clientInput.text;
+        _textsPool.Clear();
         FillReservations();
     }
 

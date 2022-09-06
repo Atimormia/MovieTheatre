@@ -12,10 +12,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{94619137-CE8D-5FA5-90FE-D09CAA65B0F9}</ProjectGuid>
+    <ProjectGuid>{B306D42A-86A9-F7E4-231D-605100EF7BBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -68,91 +68,12 @@
      <Compile Include="Assets\Scripts\UI\Menus\ReservationsMenu.cs" />
      <Compile Include="Assets\Scripts\UI\Menus\SeatsMenu.cs" />
      <Compile Include="Assets\Scripts\Utils\ObjectsPool.cs" />
-     <None Include="Assets\Packages\Google.Apis.Core.1.57.0\lib\netstandard2.0\Google.Apis.Core.xml" />
-     <None Include="Assets\Packages\Google.Apis.Auth.1.57.0\lib\netstandard2.0\Google.Apis.Auth.xml" />
-     <None Include="Assets\Packages\Newtonsoft.Json.13.0.1\lib\netstandard2.0\Newtonsoft.Json.xml" />
-     <None Include="Assets\Packages\Google.Apis.Sheets.v4.1.57.0.2727\lib\netstandard2.0\Google.Apis.Sheets.v4.xml" />
-     <None Include="Assets\Packages\Google.Apis.1.57.0\lib\netstandard2.0\Google.Apis.xml" />
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Runtime">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.PixelPerfect.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.SpriteShape.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Path.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+     <None Include="Assets\Assembly.asmdef" />
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Triangle.Runtime">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="PsdPlugin">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
- </Reference>
- <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Mathematics">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Psdimporter.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.InternalAPIEngineBridge.001">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Common.Runtime">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.SpriteShape.Runtime">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.PixelPerfect">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Animation.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Mathematics.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Common.Editor">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.InternalAPIEditorBridge.001">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -331,23 +252,23 @@
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
  </Reference>
- <Reference Include="Google.Apis">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Google.Apis.1.57.0/lib/netstandard2.0/Google.Apis.dll</HintPath>
+ <Reference Include="UnityEditor.VR">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
  </Reference>
- <Reference Include="Google.Apis.Auth">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Google.Apis.Auth.1.57.0/lib/netstandard2.0/Google.Apis.Auth.dll</HintPath>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
- <Reference Include="Google.Apis.Auth.PlatformServices">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Google.Apis.Auth.1.57.0/lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll</HintPath>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Google.Apis.Core">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Google.Apis.Core.1.57.0/lib/netstandard2.0/Google.Apis.Core.dll</HintPath>
+ <Reference Include="UnityEditor.WebGL.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Google.Apis.Sheets.v4">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Google.Apis.Sheets.v4.1.57.0.2727/lib/netstandard2.0/Google.Apis.Sheets.v4.dll</HintPath>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/LenovoY700/RiderProjects/MovieTheatre/MovieTheatre.client/Assets/Packages/Newtonsoft.Json.13.0.1/lib/netstandard2.0/Newtonsoft.Json.dll</HintPath>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

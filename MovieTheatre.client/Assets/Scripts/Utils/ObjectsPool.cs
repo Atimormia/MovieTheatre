@@ -37,5 +37,14 @@ namespace Utils
 
             return res;
         }
+
+        public void Clear()
+        {
+            foreach (var o in _pool)
+            {
+                Object.Destroy(o);
+            }
+            _pool.Clear();
+        }
     }
 }
