@@ -1,45 +1,52 @@
-﻿using Data;
-using Global;
+﻿using System.Linq;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public class ReservationsMenu : MonoBehaviour
+namespace UI.Menus
 {
-    [SerializeField] private InputField _clientInput;
-    [SerializeField] private Button _clientUpdate;
-    [SerializeField] private Transform _reservationsParent;
-    [SerializeField] private Text _reservationText;
-
-    private ObjectsPool<Text> _textsPool = null;
-
-    public void OnEnable()
+    public class ReservationsMenu : MonoBehaviour
     {
-        if (_textsPool == null)
-            _textsPool = new ObjectsPool<Text>(_reservationsParent, _reservationText);
-        _clientUpdate.onClick.AddListener(ClientUpdateHandle);
-        
-        FillReservations();
-    }
+        [SerializeField] private InputField _clientInput;
+        [SerializeField] private Button _clientUpdate;
+        [SerializeField] private Transform _reservationsParent;
+        [SerializeField] private Text _reservationText;
 
-    private void ClientUpdateHandle()
-    {
-        StateController.Instance.CurrentClientName = _clientInput.text;
-        _textsPool.Clear();
-        FillReservations();
-    }
+        private ObjectsPool<Text> _textsPool = null;
 
-    private void FillReservations()
-    {
-        var reservations = DataAccessor.Instance.GetReservationsForClient(StateController.Instance.CurrentClientName);
-        int i = 0;
-        foreach (var reservation in reservations)
+        public void OnEnable()
         {
-            var text = _textsPool.GetFromPool(i);
-            i++;
+            if (_textsPool == null)
+                _textsPool = new ObjectsPool<Text>(_reservationsParent, _reservationText);
 
-            text.text =
-                $"Movie: {reservation.EventData.MovieName}, DateTime: {reservation.EventData.DateTime}, Seat: {reservation.SeatNumber}";
+            _clientInput.text = StateController.Instance.CurrentClientName;
+            _clientUpdate.onClick.AddListener(ClientUpdateHandle);
+        
+            FillReservations();
+        }
+
+        private void ClientUpdateHandle()
+        {
+            StateController.Instance.CurrentClientName = _clientInput.text;
+            _textsPool.Clear();
+            FillReservations();
+        }
+
+        private void FillReservations()
+        {
+            var client = StateController.Instance.CurrentClientName;
+            if (string.IsNullOrEmpty(client)) 
+                return;
+        
+            var reservations = DataAccessor.Instance.GetReservationsForClient(client).ToArray();
+            for (var i = 0; i < reservations.Length; i++)
+            {
+                var text = _textsPool.GetFromPool(i);
+
+                text.text =
+                    $"Movie: {reservations[i].EventData.MovieName}, DateTime: {reservations[i].EventData.DateTime}, Seat: {reservations[i].SeatNumber}";
+            }
         }
     }
 }

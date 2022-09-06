@@ -3,24 +3,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MovieButton : MonoBehaviour
+namespace UI.Buttons
 {
-    private Text _text;
-    private Button _button;
-
-    public void SetText(string movieName, DateTime dateTime)
+    public class MovieButton : MonoBehaviour
     {
-        if (_text == null)
-            _text = GetComponentInChildren<Text>();
-        _text.text = $"{movieName}, {dateTime}";
-    }
+        private Text _text;
+        private Button _button;
 
-    public void SetListener(UnityAction action)
-    {
-        if (_button == null)
-            _button = GetComponent<Button>();
+        public void SetText(string movieName, DateTime dateTime)
+        {
+            if (_text == null)
+                _text = GetComponentInChildren<Text>();
+            _text.text = $"{movieName}, {dateTime}";
+        }
 
-        _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(action);
+        public void SetListener(UnityAction action)
+        {
+            if (_button == null)
+                _button = GetComponent<Button>();
+
+            _button.onClick.RemoveAllListeners();
+            _button.onClick.AddListener(action);
+        }
     }
 }

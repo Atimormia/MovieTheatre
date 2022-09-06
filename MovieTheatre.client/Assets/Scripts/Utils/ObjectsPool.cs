@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Utils
 {
-    public class ObjectsPool<T> where T:Object
+    public class ObjectsPool<T> where T:Component
     {
         private readonly List<T> _pool = new List<T>();
         private Transform _parent;
@@ -24,17 +24,16 @@ namespace Utils
 
         public T GetFromPool(int i, Action<T> onCreate = null)
         {
-            T res;
             if (_pool.Count > i && _pool[i] != null)
-                res = _pool[i];
-            else
             {
-                res = Object.Instantiate(_prefab, _parent);
-                _pool.Add(res);
-                
-                onCreate?.Invoke(res);
+                _pool[i].transform.parent = _parent;
+                return _pool[i];
             }
 
+            var res = Object.Instantiate(_prefab, _parent);
+            _pool.Add(res);
+                
+            onCreate?.Invoke(res);
             return res;
         }
 
@@ -42,9 +41,17 @@ namespace Utils
         {
             foreach (var o in _pool)
             {
-                Object.Destroy(o);
+                Object.Destroy(o.gameObject);
             }
             _pool.Clear();
+        }
+
+        public void DisableAll()
+        {
+            foreach (var o in _pool)
+            {
+                o.gameObject.SetActive(false);
+            }
         }
     }
 }

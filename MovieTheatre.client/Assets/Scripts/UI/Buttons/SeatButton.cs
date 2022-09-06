@@ -1,70 +1,72 @@
 ﻿using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SeatButton : MonoBehaviour
+namespace UI.Buttons
 {
-    [SerializeField] private Color _selected;
+    public class SeatButton : MonoBehaviour
+    {
+        [SerializeField] private Color _selected;
 
-    public event Action OnSelected;
-    public event Action OnDeselected;
+        public event Action OnSelected;
+        public event Action OnDeselected;
 
-    private Button _button;
-    private Button Button{
-        get
-        {
-            if (_button == null)
-                _button = GetComponent<Button>();
-            return _button;
+        private Button _button;
+        private Button Button{
+            get
+            {
+                if (_button == null)
+                    _button = GetComponent<Button>();
+                return _button;
+            }
         }
-    }
     
-    private Image _image;
-    private Image Image{
-        get
-        {
-            if (_image == null)
-                _image = GetComponent<Image>();
-            return _image;
+        private Image _image;
+        private Image Image{
+            get
+            {
+                if (_image == null)
+                    _image = GetComponent<Image>();
+                return _image;
+            }
         }
-    }
-    private Text _text;
-    private Text Text{
-        get
-        {
-            if (_text == null)
-                _text = GetComponentInChildren<Text>();
-            return _text;
+        private Text _text;
+        private Text Text{
+            get
+            {
+                if (_text == null)
+                    _text = GetComponentInChildren<Text>();
+                return _text;
+            }
         }
-    }
-    public void SetAsReserved()
-    {
-        Button.interactable = false;
-    }
+        public void SetAsReserved()
+        {
+            Button.interactable = false;
+        }
 
-    public void SetAsAvailable()
-    {
-        Button.interactable = true;
-        Button.onClick.RemoveAllListeners();
-        Button.onClick.AddListener(SetAsSelected);
-        Image.color = Color.white;
-        OnDeselected?.Invoke();
-    }
+        public void SetAsAvailable()
+        {
+            Button.interactable = true;
+            Button.onClick.RemoveAllListeners();
+            Button.onClick.AddListener(SetAsSelected);
+            Image.color = Color.white;
+            OnDeselected?.Invoke();
+        }
 
-    private void SetAsSelected()
-    {
-        Button.interactable = true;
-        Button.onClick.RemoveAllListeners();
-        Button.onClick.AddListener(SetAsAvailable);
-        Image.color = _selected;
+        private void SetAsSelected()
+        {
+            Button.interactable = true;
+            Button.onClick.RemoveAllListeners();
+            Button.onClick.AddListener(SetAsAvailable);
+            Image.color = _selected;
         
-        OnSelected?.Invoke();
-    }
+            OnSelected?.Invoke();
+        }
 
-    public void SetCost(string cost)
-    {
-        Text.text = cost;
-    }
+        public void SetCost(string cost)
+        {
+            Text.text = cost;
+        }
 
+    }
 }

@@ -1,44 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Data;
-using Global;
+using UI.Buttons;
 using UnityEngine;
 using Utils;
 
-public class MoviesMenu : MonoBehaviour
+namespace UI.Menus
 {
-    [SerializeField]
-    private MovieButton _movieButtonPrefab;
-    [SerializeField]
-    private Transform _buttonsParent;
-    [SerializeField] 
-    private GameObject _seatsMenu;
-
-    private ObjectsPool<MovieButton> _buttonsPool = null;
-
-    public void OnEnable()
+    public class MoviesMenu : MonoBehaviour
     {
-        if (_buttonsPool == null)
-            _buttonsPool = new ObjectsPool<MovieButton>(_buttonsParent, _movieButtonPrefab);
-        FillButtons();
-    }
+        [SerializeField]
+        private MovieButton _movieButtonPrefab;
+        [SerializeField]
+        private Transform _buttonsParent;
+        [SerializeField] 
+        private GameObject _seatsMenu;
 
-    private void FillButtons()
-    {
-        var movies = DataAccessor.Instance.GetAllMovies();
+        private ObjectsPool<MovieButton> _buttonsPool = null;
 
-        var i = 0;
-        foreach (var movie in movies)
+        public void OnEnable()
         {
-            var button = _buttonsPool.GetFromPool(i);
-            i++;
+            if (_buttonsPool == null)
+                _buttonsPool = new ObjectsPool<MovieButton>(_buttonsParent, _movieButtonPrefab);
+            FillButtons();
+        }
 
-            button.SetText(movie.MovieName, movie.DateTime);
-            button.SetListener(() =>
+        private void FillButtons()
+        {
+            var movies = DataAccessor.Instance.GetAllMovies().ToArray();
+
+            for (var i = 0; i < movies.Length; i++)
             {
-                gameObject.SetActive(false);
-                _seatsMenu.SetActive(true);
-                StateController.Instance.CurrentEvent = movie;
-            });
+                var movie = movies[i];
+                var button = _buttonsPool.GetFromPool(i);
+
+                button.SetText(movie.MovieName, movie.DateTime);
+                button.SetListener(() =>
+                {
+                    StateController.Instance.CurrentEvent = movie;
+                    gameObject.SetActive(false);
+                    _seatsMenu.SetActive(true);
+                });
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Global;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -25,9 +24,9 @@ namespace Data
             new Lazy<DataAccessor>(() => new DataAccessor());
         private static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
 
-        private List<SeatData> _seats = new List<SeatData>();
-        private Dictionary<int, EventData> _events = new Dictionary<int, EventData>();
-        private SheetsService _service;
+        private readonly List<SeatData> _seats = new List<SeatData>();
+        private readonly Dictionary<int, EventData> _events = new Dictionary<int, EventData>();
+        private readonly SheetsService _service;
         
         public static DataAccessor Instance => Lazy.Value;
 
